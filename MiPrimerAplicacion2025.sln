@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "practica", "practica\practica.csproj", "{E0975019-036D-4E81-8D2C-EBAD48EAB9B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "practica5", "practica5\practica5.csproj", "{7B9EBACF-1588-4E50-8C91-9FF8085C474C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E0975019-036D-4E81-8D2C-EBAD48EAB9B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0975019-036D-4E81-8D2C-EBAD48EAB9B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0975019-036D-4E81-8D2C-EBAD48EAB9B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0975019-036D-4E81-8D2C-EBAD48EAB9B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B9EBACF-1588-4E50-8C91-9FF8085C474C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B9EBACF-1588-4E50-8C91-9FF8085C474C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B9EBACF-1588-4E50-8C91-9FF8085C474C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B9EBACF-1588-4E50-8C91-9FF8085C474C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {42EC02FB-6879-4219-B0AB-9F70A0A6F696}
+	EndGlobalSection
+EndGlobal
