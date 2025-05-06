@@ -29,34 +29,49 @@
         private void InitializeComponent()
         {
             dgvPokemon = new DataGridView();
+            pbxPokemon = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)dgvPokemon).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pbxPokemon).BeginInit();
             SuspendLayout();
             // 
             // dgvPokemon
             // 
             dgvPokemon.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvPokemon.Location = new Point(105, 87);
+            dgvPokemon.Location = new Point(33, 49);
             dgvPokemon.Name = "dgvPokemon";
             dgvPokemon.RowHeadersWidth = 51;
-            dgvPokemon.Size = new Size(563, 325);
+            dgvPokemon.Size = new Size(704, 279);
             dgvPokemon.TabIndex = 0;
+            dgvPokemon.SelectionChanged += dgvPokemon_SelectionChanged;
+            // 
+            // pbxPokemon
+            // 
+            pbxPokemon.Location = new Point(762, 49);
+            pbxPokemon.Name = "pbxPokemon";
+            pbxPokemon.Size = new Size(275, 279);
+            pbxPokemon.SizeMode = PictureBoxSizeMode.StretchImage;
+            pbxPokemon.TabIndex = 1;
+            pbxPokemon.TabStop = false;
             // 
             // frmPokemons
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(776, 510);
+            ClientSize = new Size(1071, 383);
+            Controls.Add(pbxPokemon);
             Controls.Add(dgvPokemon);
             Name = "frmPokemons";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Pokemons";
             Load += frmPokemons_Load;
             ((System.ComponentModel.ISupportInitialize)dgvPokemon).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pbxPokemon).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
         private DataGridView dgvPokemon;
+        private PictureBox pbxPokemon;
     }
 }
