@@ -1,16 +1,16 @@
 ﻿namespace ejemplo1
 {
-    partial class Form1
+    partial class frmDiscos
     {
         /// <summary>
-        /// Variable del diseñador necesaria.
+        ///  Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
-        /// Limpiar los recursos que se estén usando.
+        ///  Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing">true si los recursos administrados se deben desechar; false en caso contrario.</param>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -20,79 +20,58 @@
             base.Dispose(disposing);
         }
 
-        #region Código generado por el Diseñador de Windows Forms
+        #region Windows Form Designer generated code
 
         /// <summary>
-        /// Método necesario para admitir el Diseñador. No se puede modificar
-        /// el contenido de este método con el editor de código.
+        ///  Required method for Designer support - do not modify
+        ///  the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnSaludar = new System.Windows.Forms.Button();
-            this.lblSaludar = new System.Windows.Forms.Label();
-            this.lblNombre = new System.Windows.Forms.Label();
-            this.txtNombre = new System.Windows.Forms.TextBox();
-            this.SuspendLayout();
+            dgvDiscos = new DataGridView();
+            pbxDiscos = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)dgvDiscos).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pbxDiscos).BeginInit();
+            SuspendLayout();
             // 
-            // btnSaludar
+            // dgvDiscos
             // 
-            this.btnSaludar.Location = new System.Drawing.Point(199, 161);
-            this.btnSaludar.Name = "btnSaludar";
-            this.btnSaludar.Size = new System.Drawing.Size(206, 93);
-            this.btnSaludar.TabIndex = 0;
-            this.btnSaludar.Text = "SALUDAR";
-            this.btnSaludar.UseVisualStyleBackColor = true;
-            this.btnSaludar.Click += new System.EventHandler(this.btnSaludar_Click);
+            dgvDiscos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvDiscos.Location = new Point(33, 56);
+            dgvDiscos.Name = "dgvDiscos";
+            dgvDiscos.RowHeadersWidth = 51;
+            dgvDiscos.Size = new Size(803, 309);
+            dgvDiscos.TabIndex = 0;
+            dgvDiscos.SelectionChanged += dgvDiscos_SelectionChanged;
             // 
-            // lblSaludar
+            // pbxDiscos
             // 
-            this.lblSaludar.AutoSize = true;
-            this.lblSaludar.Location = new System.Drawing.Point(239, 286);
-            this.lblSaludar.Name = "lblSaludar";
-            this.lblSaludar.Size = new System.Drawing.Size(0, 16);
-            this.lblSaludar.TabIndex = 1;
+            pbxDiscos.Location = new Point(892, 56);
+            pbxDiscos.Name = "pbxDiscos";
+            pbxDiscos.Size = new Size(268, 309);
+            pbxDiscos.SizeMode = PictureBoxSizeMode.StretchImage;
+            pbxDiscos.TabIndex = 1;
+            pbxDiscos.TabStop = false;
             // 
-            // lblNombre
+            // frmDiscos
             // 
-            this.lblNombre.AutoSize = true;
-            this.lblNombre.Location = new System.Drawing.Point(196, 114);
-            this.lblNombre.Name = "lblNombre";
-            this.lblNombre.Size = new System.Drawing.Size(62, 16);
-            this.lblNombre.TabIndex = 2;
-            this.lblNombre.Text = "Nombre: ";
-            // 
-            // txtNombre
-            // 
-            this.txtNombre.Location = new System.Drawing.Point(264, 114);
-            this.txtNombre.Name = "txtNombre";
-            this.txtNombre.Size = new System.Drawing.Size(138, 22);
-            this.txtNombre.TabIndex = 3;
-            // 
-            // Form1
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(624, 419);
-            this.Controls.Add(this.txtNombre);
-            this.Controls.Add(this.lblNombre);
-            this.Controls.Add(this.lblSaludar);
-            this.Controls.Add(this.btnSaludar);
-            this.Name = "Form1";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "PRIMERA APP";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
-            this.Load += new System.EventHandler(this.Form1_Load);
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1192, 412);
+            Controls.Add(pbxDiscos);
+            Controls.Add(dgvDiscos);
+            Name = "frmDiscos";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Discos";
+            Load += frmDiscos_Load;
+            ((System.ComponentModel.ISupportInitialize)dgvDiscos).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pbxDiscos).EndInit();
+            ResumeLayout(false);
         }
 
         #endregion
 
-        private System.Windows.Forms.Button btnSaludar;
-        private System.Windows.Forms.Label lblSaludar;
-        private System.Windows.Forms.Label lblNombre;
-        private System.Windows.Forms.TextBox txtNombre;
+        private DataGridView dgvDiscos;
+        private PictureBox pbxDiscos;
     }
 }
-
