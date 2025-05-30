@@ -1,3 +1,6 @@
+using dominio;
+using negocio;
+
 namespace winform_app
 {
     public partial class frmPokemons : Form
@@ -9,21 +12,16 @@ namespace winform_app
             InitializeComponent();
         }
 
-        private void frmPokemons_Load(object sender, EventArgs e)
+        private void frmPokemons_Load(object sender, EventArgs e)       // A este evento le agrego un 'try-catch' para manejar excepciones (UrlImagen null)
         {
-            // Voy a invocar la lectura a la base de datos
-
-            PokemonNegocio negocio = new PokemonNegocio();
-
-            listaPokemons = negocio.listar();
-
-            dgvPokemon.DataSource = listaPokemons;
-            dgvPokemon.Columns["UrlImagen"].Visible = false;    // Al cargar el formulario, oculto la columna de la URL de la imagen en el DataGridView
-            cargarImagen(listaPokemons[0].UrlImagen);           // Cargo la imagen del primer pokemon cuando se carga el formulario
-
-
-            // negocio.listar(); Va a la base de datos y me devuelve una lista de datos (lista de Pokemons)
-            // dgvPokemon.DataSource -> DataSource recibe esos datos y los modela en la tabla (dgvPokemons)
+            try
+            {
+                cargar();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         private void dgvPokemon_SelectionChanged(object sender, EventArgs e)
@@ -45,6 +43,34 @@ namespace winform_app
 
                 pbxPokemon.Load("https://i0.wp.com/port2flavors.com/wp-content/uploads/2022/07/placeholder-614.png?fit=1200%2C800&ssl=1");
             }
+        }
+
+        private void cargar()       // Método para cargar la lista de Pokemons
+        {
+            PokemonNegocio negocio = new PokemonNegocio();      // Voy a invocar la lectura a la base de datos
+
+            listaPokemons = negocio.listar();
+
+            dgvPokemon.DataSource = listaPokemons;
+            dgvPokemon.Columns["UrlImagen"].Visible = false;    // Al cargar el formulario, oculto la columna de la URL de la imagen en el DataGridView
+            cargarImagen(listaPokemons[0].UrlImagen);           // Cargo la imagen del primer pokemon cuando se carga el formulario
+
+
+            // negocio.listar(); Va a la base de datos y me devuelve una lista de datos (lista de Pokemons)
+            // dgvPokemon.DataSource -> DataSource recibe esos datos y los modela en la tabla (dgvPokemons)
+        }
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            // Al clickear el botón 'Agregar', voy a abrir el formulario de cargar un nuevo Pokemon:
+
+            frmAltaPokemons nuevo = new frmAltaPokemons();
+            nuevo.ShowDialog();
+
+            // Acá voy a actualizar la carga del nuevo pokemon
+            // Una vez que el usuario clickea 'Aceptar' se muestra el nuevo Pokemon en el DataGridView
+
+            cargar();       // Con este método debería aparecer el Pokemon que el usuario carga en el DataGridView
         }
     }
 }
