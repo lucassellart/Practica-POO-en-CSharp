@@ -43,6 +43,7 @@
             lblUrlImagen = new Label();
             txtUrlImagen = new TextBox();
             pbxUrlImagen = new PictureBox();
+            btnAgregarImagen = new Button();
             ((System.ComponentModel.ISupportInitialize)pbxUrlImagen).BeginInit();
             SuspendLayout();
             // 
@@ -169,18 +170,29 @@
             // 
             // pbxUrlImagen
             // 
-            pbxUrlImagen.Location = new Point(375, 50);
+            pbxUrlImagen.Location = new Point(377, 50);
             pbxUrlImagen.Name = "pbxUrlImagen";
             pbxUrlImagen.Size = new Size(305, 339);
             pbxUrlImagen.SizeMode = PictureBoxSizeMode.StretchImage;
             pbxUrlImagen.TabIndex = 14;
             pbxUrlImagen.TabStop = false;
             // 
+            // btnAgregarImagen
+            // 
+            btnAgregarImagen.Location = new Point(324, 186);
+            btnAgregarImagen.Name = "btnAgregarImagen";
+            btnAgregarImagen.Size = new Size(33, 29);
+            btnAgregarImagen.TabIndex = 15;
+            btnAgregarImagen.Text = "+";
+            btnAgregarImagen.UseVisualStyleBackColor = true;
+            btnAgregarImagen.Click += btnAgregarImagen_Click;
+            // 
             // frmAltaPokemons
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(716, 417);
+            ClientSize = new Size(734, 417);
+            Controls.Add(btnAgregarImagen);
             Controls.Add(pbxUrlImagen);
             Controls.Add(txtUrlImagen);
             Controls.Add(lblUrlImagen);
@@ -223,5 +235,6 @@
         private Label lblUrlImagen;
         private TextBox txtUrlImagen;
         private PictureBox pbxUrlImagen;
+        private Button btnAgregarImagen;
     }
 }

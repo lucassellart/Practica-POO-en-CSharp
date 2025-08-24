@@ -11,6 +11,8 @@ namespace dominio
     {
         // Propiedades:
 
+        public int Id { get; set; }
+
         [DisplayName("Número")]     // Annotation -> (validaciones, formato de fecha) ->  darle un nombre a la columna, agregar tílde
         public int Numero { get; set; }
         public string Nombre { get; set; }

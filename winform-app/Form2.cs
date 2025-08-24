@@ -8,15 +8,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using System.Configuration;
 using dominio;
 
 namespace winform_app
 {
     public partial class frmAltaPokemons : Form
     {
+        private Pokemon pokemon = null;
+
+        private OpenFileDialog archivo = null;
+
         public frmAltaPokemons()
         {
             InitializeComponent();
+        }
+
+        public frmAltaPokemons(Pokemon modificado)      // Hago este 2do constructor para tener la opción de pasar por parámetro un Pokemon a modificar
+        {
+            InitializeComponent();
+
+            this.pokemon = modificado;
+
+            Text = "Modificar Pokemon";    // Cambio el título del formulario al modificar un Pokemon
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -29,27 +44,48 @@ namespace winform_app
         private void btnAceptar_Click(object sender, EventArgs e)
         {
 
-            Pokemon aux = new Pokemon();            // Creo un objeto Pokemon auxiliar para guardar los datos del nuevo Pokemon
-
             PokemonNegocio poke = new PokemonNegocio();     // Creo este objeto para poder acceder al método 'agregar'
 
             try
             {
-                // Capturar los datos y transformarlos en un objeto tipo Pokemon
+                if (pokemon == null)     // Si llegué hasta acá y estoy en nulo es porque voy a agregar un nuevo Pokemon
+                {
+                    pokemon = new Pokemon();    // Creo un nuevo objeto Pokemon
+                }
 
-                aux.Numero = int.Parse(txtNumero.Text);     // Capturo el número del Pokemon
-                aux.Nombre = txtNombre.Text;                // Capturo el nombre del Pokemon
-                aux.Descripcion = txtDescripcion.Text;      // Capturo la descripción del Pokemon
-                aux.UrlImagen = txtUrlImagen.Text;          // Capturo la URL de la imagen del Pokemon
+
+                // Capturar los datos y transformarlos en un objeto tipo Pokemon
+                // La variable 'pokemon' que uso viene del atributo privado creado al principio de la clase
+
+                pokemon.Numero = int.Parse(txtNumero.Text);     // Capturo el número del Pokemon
+                pokemon.Nombre = txtNombre.Text;                // Capturo el nombre del Pokemon
+                pokemon.Descripcion = txtDescripcion.Text;      // Capturo la descripción del Pokemon
+                pokemon.UrlImagen = txtUrlImagen.Text;          // Capturo la URL de la imagen del Pokemon
 
                 // Voy a sumar los tipos y debilidades de los Pokemons:
 
-                aux.Tipo = (Elemento)cbxTipo.SelectedItem;
-                aux.Debilidad = (Elemento)cbxDebilidad.SelectedItem;
+                pokemon.Tipo = (Elemento)cbxTipo.SelectedItem;
+                pokemon.Debilidad = (Elemento)cbxDebilidad.SelectedItem;
 
-                // Ahora necesito llevar ese nuevo Pokemon a la DB, eso lo hago con 'pokemonNegocio'
-                poke.agregar(aux);
-                MessageBox.Show("Pokemon agregado exitosamente!");
+
+                if (pokemon.Id == 0)
+                {
+                    poke.agregar(pokemon);
+                    MessageBox.Show("Pokemon agregado exitosamente!");
+
+                }
+                else
+                {
+                    poke.modificar(pokemon);
+                    MessageBox.Show("Pokemon modificado exitosamente!");
+                }
+
+                if (archivo.FileName != null && !(txtUrlImagen.Text.Contains("http")))      // si el archivo NO es nulo y la url NO tiene http 
+                                                                                            // significa que NO hay archivo, entonces NO lo guarda
+                {
+                    File.Copy(archivo.FileName, ConfigurationManager.AppSettings["image-folder"] + archivo.SafeFileName);       // guardo la imagen
+                }
+
 
                 Close();  // Cierro el formulario para volver a la otra ventana
             }
@@ -58,6 +94,7 @@ namespace winform_app
 
                 MessageBox.Show(ex.ToString());
             }
+
         }
 
         private void frmAltaPokemons_Load(object sender, EventArgs e)
@@ -67,7 +104,34 @@ namespace winform_app
             try
             {
                 cbxTipo.DataSource = elementoNegocio.listar();      // 'DataSource' es para visualizar datos que vienen del exterior (lista, DB, etc)
+
+                // Valores pre-seleccionados para Tipo:
+                cbxTipo.ValueMember = "Id";
+                cbxTipo.DisplayMember = "Descripcion";      // 'DisplayMember' es para mostrar el nombre del tipo en el ComboBox
+
                 cbxDebilidad.DataSource = elementoNegocio.listar();
+
+                // Valores pre-seleccionados para Debilidad:
+                cbxDebilidad.ValueMember = "Id";            // Son los nombres de las propiedades de la clase 'Elemento'
+                cbxDebilidad.DisplayMember = "Descripcion";
+
+                // Voy a precargar los datos del Pokemon que se va a modificar:
+
+                if (pokemon != null)       // Si el Pokemon NO es nulo, es porque es una modificación
+                {
+                    txtNumero.Text = pokemon.Numero.ToString();
+                    txtNombre.Text = pokemon.Nombre;
+                    txtDescripcion.Text = pokemon.Descripcion;
+                    txtUrlImagen.Text = pokemon.UrlImagen;
+
+                    // Arreglar la imagen para cargarla de una:
+                    cargarImagen(pokemon.UrlImagen);    // Cargar la imagen del Pokemon con la URL precargada
+
+                    // Voy a pre-seleccionar los valores de los tipos y debilidades del Pokemon:
+                    cbxTipo.SelectedValue = pokemon.Tipo.Id;
+                    cbxDebilidad.SelectedValue = pokemon.Debilidad.Id;
+                }
+
             }
             catch (Exception ex)
             {
@@ -84,15 +148,27 @@ namespace winform_app
         {
             try
             {
-                //System.Net.ServicePointManager.SecurityProtocol = System.Net.SecurityProtocolType.Tls12;
-
                 pbxUrlImagen.Load(imagen);    // Cargar la imagen del pokemon seleccionado
             }
             catch (Exception)
             {
-
                 pbxUrlImagen.Load("https://i0.wp.com/port2flavors.com/wp-content/uploads/2022/07/placeholder-614.png?fit=1200%2C800&ssl=1");
             }
+        }
+
+        private void btnAgregarImagen_Click(object sender, EventArgs e)     // evento para levantar y guardar una imagen local
+        {
+            archivo = new OpenFileDialog();                 // OpenFileDialog abre una ventana y me permite elegir un archivo
+
+            archivo.Filter = "jpg|*.jpg;|png|*.png";        // traigo todos los archivos con formato (jpg) - puedo elegir otros
+
+            if (archivo.ShowDialog() == DialogResult.OK)    // Cuando se abre la ventana del archivo, si el usuario aprieta 'OK' entonces se muestra la foto
+            {
+                txtUrlImagen.Text = archivo.FileName;          // archivo.FileName me devuelve la ruta completa y el nombre del archivo
+                
+                cargarImagen(archivo.FileName);
+ 
+            }               
         }
     }
 }
